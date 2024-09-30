@@ -1,8 +1,10 @@
 import { collections, database } from '#services/mongodb_service'
 import { ObjectId } from 'mongodb'
 import moment from 'moment'
+import env from '#start/env'
 
-const collection = 'poc'
+const collection = env.get('MONGO_COLLECTION')
+// const collection = 'poc'
 class MongoDBModels {
   public async AggregationsRaw(query) {
     const collections = database.data?.collection(collection)
