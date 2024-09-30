@@ -1,6 +1,7 @@
 import { clientMinio } from '#services/minio'
 import fetch_request from '#helpers/fetchs'
 import axios from 'axios'
+import env from '#start/env'
 const minio_service = env.get("MINIO_SERVICE")
 class MinIO {
   public getListObject(bucket: string, prefix: string) {
