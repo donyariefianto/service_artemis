@@ -149,6 +149,12 @@ class Artemis {
       throw new Error('Artemis OPEN API: ' + error.message)
     }
   }
+
+  public async Delete7Day () {
+    let sevenDayBefore = moment().subtract('days',7).format("YYYY-MM-DD")
+    let query_delete = {created_at:{$lte:sevenDayBefore,type:'anpr'}}
+    await mongodb.DeleteMany(query_delete)
+  }
 }
 
 export default new Artemis()

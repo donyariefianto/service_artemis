@@ -13,9 +13,16 @@ export class Schedullers {
         throw new Error(e)
       }
     })
+    this.cronJob = new CronJob('0 0 5 * * *', async () => {
+      try {
+        await artemis.Delete7Day()
+      } catch (e) {
+        throw new Error(e)
+      }
+    })
     // Start job
     if (!this.cronJob.running) {
-      // this.cronJob.start()
+      this.cronJob.start()
     }
   }
 }
