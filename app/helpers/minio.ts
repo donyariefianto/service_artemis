@@ -1,7 +1,7 @@
 import { clientMinio } from '#services/minio'
 import fetch_request from '#helpers/fetchs'
 import axios from 'axios'
-
+const minio_service = env.get("MINIO_SERVICE")
 class MinIO {
   public getListObject(bucket: string, prefix: string) {
     return new Promise((resolve, reject) => {
@@ -38,7 +38,7 @@ class MinIO {
       let config = {
         method: 'get',
         maxBodyLength: Infinity,
-        url: 'http://10.1.10.14:9000/enygma/'+date+'/'+file,
+        url: minio_service+date+'/'+file,
         headers: { }
       };
       let res = await axios.request(config)

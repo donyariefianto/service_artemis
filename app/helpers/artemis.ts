@@ -9,6 +9,7 @@ import b64 from '#helpers/base64'
 const artemis_hostname = env.get('ARTEMIS_HOSTNAME')
 const artemis_debug_path = env.get('ARTEMIS_PATH_DEBUG')
 const artemis_ssl = Boolean(JSON.parse(env.get('ARTEMIS_SSL')))
+const bucket_minio = env.get("MINIO_BUCKET")
 
 class Artemis {
   public async SaveANPR_FaceRM() {
@@ -40,7 +41,7 @@ class Artemis {
         var result_image = await this.vehicleImage(data_request)
         var file_image = b64.base64ToFile(result_image.response)
         await minio.putObject(
-          'enygma',
+          bucket_minio,
           moment().format("YYYY-MM-DD")+'/'+file_image.name,
           file_image.file,
           file_image.size,
@@ -66,7 +67,7 @@ class Artemis {
         var result_image = await this.faceRecognitionImage(data_request)
         var file_image = b64.base64ToFile(result_image.response)
         await minio.putObject(
-            'enygma',
+            bucket_minio,
             moment().format("YYYY-MM-DD")+'/'+file_image.name,
           file_image.file,
           file_image.size,

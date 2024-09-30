@@ -4,6 +4,7 @@ import mongodb from '#helpers/mongodb'
 import MinIO from '#helpers/minio'
 import moment from 'moment'
 import * as fs from 'fs'
+const bucket_minio = env.get("MINIO_BUCKET")
 
 export default class MainsController {
   async crossrecord({ request, response }) {
@@ -46,7 +47,7 @@ export default class MainsController {
         var fileUpload = request.file(data)
         var file = fs.readFileSync(fileUpload.tmpPath)
         await MinIO.putObject(
-          'enygma',
+          bucket_minio,
           moment().format("YYYY-MM-DD")+'/'+fileUpload.clientName,
           file,
           fileUpload.size,
