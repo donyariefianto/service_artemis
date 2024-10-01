@@ -4,6 +4,7 @@ import mongodb from '#helpers/mongodb'
 import MinIO from '#helpers/minio'
 import moment from 'moment'
 import * as fs from 'fs'
+import env from '#start/env'
 const bucket_minio = env.get("MINIO_BUCKET")
 
 export default class MainsController {
