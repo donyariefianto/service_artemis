@@ -5,6 +5,8 @@ import env from '#start/env'
 
 export default class ProxyMiddleware {
   async handle(ctx: HttpContext, next: NextFn) {
+    console.log(ctx.request.url());
+    
     /**
      * Middleware logic goes here (before the next call)
      */
