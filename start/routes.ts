@@ -20,6 +20,4 @@ router.get('/get-picture', '#controllers/mains_controller.get_image')
 router.get('/get-data', '#controllers/mains_controller.get_data_mongo')
 router.get('/get-data-aggregation', '#controllers/mains_controller.get_data_mongo_aggregation')
 router.get('/get-bucket', '#controllers/mains_controller.getBucket')
-router
-  .get('/drive/:bucket/:folder/:name', ()=>{})
-  .use(middleware.proxy())
+router.get('/drive/:bucket/:folder/:name', ()=>{}).use(middleware.proxy())

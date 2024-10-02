@@ -5,8 +5,6 @@ import env from '#start/env'
 
 export default class ProxyMiddleware {
   async handle(ctx: HttpContext, next: NextFn) {
-    console.log(ctx.request.url());
-    
     /**
      * Middleware logic goes here (before the next call)
      */
@@ -14,7 +12,7 @@ export default class ProxyMiddleware {
     const minio_service = env.get('MINIO_SERVICE')
     const proxy = createProxyMiddleware({
       target: minio_service,
-      changeOrigin: true,
+      changeOrigin: false,
       pathRewrite: {
         '^/drive': '', // Remove /proxy prefix when forwarding
       },
