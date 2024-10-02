@@ -27,7 +27,7 @@ class MinIO {
     })
   }
   public deleteObject(bucket: string, name: string) {
-    return clientMinio.data.removeObject(bucket, name)
+    return clientMinio.data.removeObject(bucket, name, { forceDelete: true })
   }
 
   public putObject(bucket: string, name: string, data: any) {

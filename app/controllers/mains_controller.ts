@@ -97,6 +97,8 @@ export default class MainsController {
       return response.status(400).send("Invalid request parameter")
     }
     let res = await MinIO.getObjectFile(filename,date)
+    response.safeHeader('Content-disposition', 'attachment; filename=' + filename );
+    response.safeHeader('Content-type', 'binary/octet-stream')
     return response.status(200).send(res)
   }
   async get_data_mongo({ request, response }) {
@@ -278,7 +280,9 @@ export default class MainsController {
     let data = await mongodb.AggregationsRaw(agg)
     return response.status(200).send({status : 200, message:'success', timestamp:moment().unix(),data})
   }
-  async Tes (){
-    await artemis.Delete7Day()
+  async Tes ({request,response}){
+    // await artemis.Delete7Day()
+    let {bucket,folder} = request.all()
+    return response.json(await MinIO.getListObject(bucket,folder))    
   }
 }
