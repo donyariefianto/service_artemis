@@ -6,17 +6,18 @@ import moment from 'moment'
 import * as fs from 'fs'
 import env from '#start/env'
 const bucket_minio = env.get("MINIO_BUCKET")
+import {createProxyMiddleware} from 'http-proxy-middleware'
 
 export default class MainsController {
   async crossrecord({ request, response }) {
     try {
       let body = request.all()
       // await artemis.SaveANPR_FaceRM()
-      await mongodb.FindRaw({})
+      // await mongodb.FindRaw({})
       //   let data = await artemis.faceRecognitionImage({
       //     picUri:'Vsm://PHQG#20240805#20240805_151314056.d:102909692:289516'
       //   })
-      //   return response.status(200).send(data)
+        return response.status(200).send('data')
     } catch (error) {
       return response.status(500).send(error.message)
     }
@@ -280,9 +281,5 @@ export default class MainsController {
     let data = await mongodb.AggregationsRaw(agg)
     return response.status(200).send({status : 200, message:'success', timestamp:moment().unix(),data})
   }
-  async Tes ({request,response}){
-    // await artemis.Delete7Day()
-    let {bucket,folder} = request.all()
-    return response.json(await MinIO.getListObject(bucket,folder))    
-  }
+
 }

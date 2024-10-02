@@ -8,6 +8,7 @@
 */
 
 import router from '@adonisjs/core/services/router'
+import { middleware } from '#start/kernel'
 
 // router.on('/').render('pages/home')
 router.post('/post_picture', '#controllers/mains_controller.save_file_minio')
@@ -19,4 +20,6 @@ router.get('/get-picture', '#controllers/mains_controller.get_image')
 router.get('/get-data', '#controllers/mains_controller.get_data_mongo')
 router.get('/get-data-aggregation', '#controllers/mains_controller.get_data_mongo_aggregation')
 router.get('/get-bucket', '#controllers/mains_controller.getBucket')
-router.get('/tes', '#controllers/mains_controller.Tes')
+router
+  .get('/tes/:bucket/:folder/:name', ()=>{})
+  .use(middleware.proxy())

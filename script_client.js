@@ -1,5 +1,4 @@
-
-const https = require("https")
+const https = require('https')
 
 class Fetchs {
   async httpsPost(hostname, path, data, ssl) {
@@ -31,14 +30,15 @@ class Fetchs {
     })
   }
 }
-const fetchs =  new Fetchs()
+const fetchs = new Fetchs()
 
-
-var hostname = "192.168.2.102", path="/artemis-web/debug/", data={}, ssl=false
+var hostname = '192.168.2.102',
+  path = '/artemis-web/debug/',
+  data = {},
+  ssl = false
 
 Runner()
 
-async function Runner () {
-    console.log(await fetchs.httpsPost(hostname, path, data, ssl));
-
+async function Runner() {
+  console.log(await fetchs.httpsPost(hostname, path, data, ssl))
 }
