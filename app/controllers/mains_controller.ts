@@ -6,7 +6,6 @@ import moment from 'moment'
 import * as fs from 'fs'
 import env from '#start/env'
 const bucket_minio = env.get("MINIO_BUCKET")
-import {createProxyMiddleware} from 'http-proxy-middleware'
 
 export default class MainsController {
   async crossrecord({ request, response }) {

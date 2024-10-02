@@ -21,5 +21,5 @@ router.get('/get-data', '#controllers/mains_controller.get_data_mongo')
 router.get('/get-data-aggregation', '#controllers/mains_controller.get_data_mongo_aggregation')
 router.get('/get-bucket', '#controllers/mains_controller.getBucket')
 router
-  .get('/tes/:bucket/:folder/:name', ()=>{})
+  .get('/drive/:bucket/:folder/:name', ()=>{})
   .use(middleware.proxy())

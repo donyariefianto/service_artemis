@@ -1,20 +1,22 @@
 import type { HttpContext } from '@adonisjs/core/http'
 import type { NextFn } from '@adonisjs/core/types/http'
 import { createProxyMiddleware } from 'http-proxy-middleware'
+import env from '#start/env'
+
 export default class ProxyMiddleware {
   async handle(ctx: HttpContext, next: NextFn) {
     /**
      * Middleware logic goes here (before the next call)
      */
-    if (ctx.request.url().startsWith('/tes/')) {
+    if (ctx.request.url().startsWith('/drive/')) {
+      const minio_service = env.get('MINIO_SERVICE')
       const proxy = createProxyMiddleware({
-        target: 'http://10.1.10.14:9000',
+        target: minio_service,
         changeOrigin: true,
         pathRewrite: {
-          '^/tes': '', // Remove /proxy prefix when forwarding
+          '^/drive': '', // Remove /proxy prefix when forwarding
         },
       })
-      // proxy(ctx.request.request, ctx.response.response)
       return new Promise((resolve, reject) => {
         proxy(ctx.request.request, ctx.response.response, (err: any) => {
           if (err) {
