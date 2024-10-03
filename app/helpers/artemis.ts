@@ -207,10 +207,10 @@ class Artemis {
         await minio.deleteObject(bucket_minio,i.prefix)
       }
     }
-
-    let sevenDayBefore = moment().subtract(3,'days').format('YYYY-MM-DD')
-    let query_delete = { created_at: { $lte: sevenDayBefore }, type: 'anpr' }
-    return await mongodb.DeleteMany(query_delete)
+    return
+    // let sevenDayBefore = moment().subtract(3,'days').format('YYYY-MM-DD')
+    // let query_delete = { created_at: { $lte: sevenDayBefore }, type: 'anpr' }
+    // return await mongodb.DeleteMany(query_delete)
   }
 }
 
