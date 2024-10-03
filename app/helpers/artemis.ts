@@ -198,6 +198,9 @@ class Artemis {
   }
 
   public async DeleteExpiredRecord() {
+    let status_data = env.get('DELETE_DATA_RECORD')
+    status_data = Boolean(JSON.parse(status_data))
+    let results = "success delete data minio"
     let list_minio = await minio.getListObject(bucket_minio,'')
     let exclude_data = list_minio.slice(Math.max(list_minio.length-3,0))
     let new_delete = []
@@ -207,10 +210,13 @@ class Artemis {
         await minio.deleteObject(bucket_minio,i.prefix)
       }
     }
-    return
-    // let sevenDayBefore = moment().subtract(3,'days').format('YYYY-MM-DD')
-    // let query_delete = { created_at: { $lte: sevenDayBefore }, type: 'anpr' }
-    // return await mongodb.DeleteMany(query_delete)
+    if(status_data){
+      let sevenDayBefore = moment().subtract(3,'days').format('YYYY-MM-DD')
+      let query_delete = { created_at: { $lte: sevenDayBefore }, type: 'anpr' }
+      await mongodb.DeleteMany(query_delete)
+      results = results + " and data mongodb"
+    }
+    return results
   }
 }
 
