@@ -2,7 +2,7 @@ import fetch_request from '#helpers/fetchs'
 import env from '#start/env'
 import moment from 'moment'
 import mongodb from '#helpers/mongodb'
-import minio from './minio.js'
+import minio from '#helpers/minio'
 
 import { Readable } from 'stream'
 import b64 from '#helpers/base64'
@@ -197,10 +197,20 @@ class Artemis {
     }
   }
 
-  public async Delete7Day() {
-    let sevenDayBefore = moment().subtract('days', 7).format('YYYY-MM-DD')
-    let query_delete = { created_at: { $lte: sevenDayBefore, type: 'anpr' } }
-    await mongodb.DeleteMany(query_delete)
+  public async DeleteExpiredRecord() {
+    let list_minio = await minio.getListObject(bucket_minio,'')
+    let exclude_data = list_minio.slice(Math.max(list_minio.length-3,0))
+    let new_delete = []
+    for (const i of list_minio) {
+      let find_temp = exclude_data.find(e=>e.prefix==i.prefix)
+      if (!find_temp) {
+        await minio.deleteObject(bucket_minio,i.prefix)
+      }
+    }
+
+    let sevenDayBefore = moment().subtract(3,'days').format('YYYY-MM-DD')
+    let query_delete = { created_at: { $lte: sevenDayBefore }, type: 'anpr' }
+    return await mongodb.DeleteMany(query_delete)
   }
 }
 

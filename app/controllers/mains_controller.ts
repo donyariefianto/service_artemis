@@ -280,5 +280,7 @@ export default class MainsController {
     let data = await mongodb.AggregationsRaw(agg)
     return response.status(200).send({status : 200, message:'success', timestamp:moment().unix(),data})
   }
-
+  async DeleteRecord(){
+    return await artemis.DeleteExpiredRecord()
+  }
 }

@@ -14,6 +14,7 @@ import { middleware } from '#start/kernel'
 router.post('/post_picture', '#controllers/mains_controller.save_file_minio')
 router.post('/post_data', '#controllers/mains_controller.save_data_anpr')
 router.put('/update_data', '#controllers/mains_controller.update_data_anpr')
+router.delete('/delete_record', '#controllers/mains_controller.DeleteRecord')
 
 router.post('/crossrecord', '#controllers/mains_controller.crossrecord')
 router.get('/get-picture', '#controllers/mains_controller.get_image')

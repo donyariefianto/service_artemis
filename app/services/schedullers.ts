@@ -15,7 +15,7 @@ export class Schedullers {
     })
     this.cronJob = new CronJob('0 0 5 * * *', async () => {
       try {
-        await artemis.Delete7Day()
+        await artemis.DeleteExpiredRecord()
       } catch (e) {
         throw new Error(e)
       }
