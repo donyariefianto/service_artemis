@@ -178,7 +178,7 @@ export default class MainsController {
         },
         {
           $group: {
-            _id: "$detail.vehicleType_text",
+            _id: "$detail.vehicleType ",
             total: {
               $sum: 1,
             },
@@ -276,7 +276,6 @@ export default class MainsController {
         }
       }
     }
-    
     let data = await mongodb.AggregationsRaw(agg)
     return response.status(200).send({status : 200, message:'success', timestamp:moment().unix(),data})
   }
